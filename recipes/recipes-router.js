@@ -1,14 +1,17 @@
 require('dotenv').config();
 
+const express = require('express')
 
-const router = require('express').Router();
+const router = express()
+router.use(express.json());
+
+
 const knex = require('knex')
-const knexConfig = require('./knexfile')
+const knexConfig = require('../knexfile')
 
 // connect database to knex
 const database = knex(knexConfig.development);
 
-router.use(express.json())
 
 // GET RECIPE table 
 router.get('/', (req, res) => {

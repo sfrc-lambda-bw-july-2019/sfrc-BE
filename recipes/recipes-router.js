@@ -1,5 +1,14 @@
-const router = require('express').Router();
+require('dotenv').config();
 
+
+const router = require('express').Router();
+const knex = require('knex')
+const knexConfig = require('./knexfile')
+
+// connect database to knex
+const database = knex(knexConfig.development);
+
+router.use(express.json())
 
 // GET RECIPE table 
 router.get('/', (req, res) => {
@@ -69,5 +78,11 @@ router.delete('/:id', (req, res) => {
     })
 
 })
+
+
+router.get('/now', (req, res) => {
+  const now = new Date().toISOString();
+  res.send(now);
+});
 
 module.exports = router;

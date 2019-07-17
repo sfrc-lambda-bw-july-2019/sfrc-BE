@@ -62,24 +62,21 @@ router.get('/:id', (req, res) => {
 })
 
 
-
-// router.put('/:id', (req, res) => {
-//   database('recipes')
-//     .where({ id: req.params.id })
-//     .update({ name: 'Ava', age: 33 })
-//     .first()
-//     .then(updatedInfo => {
-//       if (updatedInfo) {
-//         res.status(200).json(updatedInfo);
-//       else {
-//           res.status(404).json({ message: "Houston we have a problem!" });
-//         }
-//       }
-//     }
-
-//     )
-
-// })
+//PUT ROUTE
+router.put('/:id', (req, res) => {
+  database('recipes')
+    .where({ id: req.params.id })
+    // .first()
+    .update({ title: req.body.title, source: req.body.source, ingredients: req.body.ingredients, instructions: req.body.instructions, category: req.body.category, user_id: req.body.user_id })
+    .then(updatedInfo => {
+      if (updatedInfo) {
+        res.status(200).json(updatedInfo);
+      } else {
+        res.status(404).json({ message: "Houston we have a problem!" });
+      }
+    }
+    )
+})
 
 
 

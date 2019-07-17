@@ -24,6 +24,8 @@ router.get('/', (req, res) => {
 })
 
 //POST to RECIPE table
+
+
 router.post('/', (req, res) => {
   database('recipes').insert(req.body, ['id', 'name'])
     .then(ids => {
@@ -43,7 +45,6 @@ router.post('/', (req, res) => {
 // GET RECIPE table with ID
 
 
-
 router.get('/:id', (req, res) => {
   database('recipes')
     .where({ id: req.params.id })
@@ -56,14 +57,36 @@ router.get('/:id', (req, res) => {
       }
     })
     .catch(error => {
-      res.status(500).json(error);
+      res.status(500).json(error.message);
     })
 })
 
 
+
+// router.put('/:id', (req, res) => {
+//   database('recipes')
+//     .where({ id: req.params.id })
+//     .update({ name: 'Ava', age: 33 })
+//     .first()
+//     .then(updatedInfo => {
+//       if (updatedInfo) {
+//         res.status(200).json(updatedInfo);
+//       else {
+//           res.status(404).json({ message: "Houston we have a problem!" });
+//         }
+//       }
+//     }
+
+//     )
+
+// })
+
+
+
+
 // DEL request to with ID
 router.delete('/:id', (req, res) => {
-  db('recipes')
+  database('recipes')
     .where({ id: req.params.id })
     .del()
     .then(count => {
@@ -77,7 +100,7 @@ router.delete('/:id', (req, res) => {
       }
 
     }).catch(error => {
-      res.status(500).json(error)
+      res.status(500).json(error.message)
     })
 
 })

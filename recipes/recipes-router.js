@@ -27,14 +27,13 @@ router.get('/', (req, res) => {
 
 
 router.post('/', (req, res) => {
-  database('recipes').insert(req.body, ['id', 'name'])
+  database('recipes').insert(req.body)
     .then(ids => {
-      database('recipes')
-        .where({ id: ids[0] })
-        .first()
-        .then(r => {
-          res.status(200).json(r)
-        })
+      //database('recipes')
+        //.where({ id: ids[0] })
+        //.first()
+        //.then(r => {
+          res.status(200).json(ids)
     }).catch(error => {
       res.status(500).json({ error: "POST ERROR!" })
     })

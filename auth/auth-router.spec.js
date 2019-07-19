@@ -9,7 +9,7 @@ describe('the auth-router', () => {
         
         afterEach(async () => {
             //clean up
-            await db('recipes').truncate();
+            await db('users').truncate();
         })
 
         it('should instert a user into the db', async () => {

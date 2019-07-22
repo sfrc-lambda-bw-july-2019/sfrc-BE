@@ -1,27 +1,38 @@
 const request = require('supertest');
-
-const db = require('../data/dbConfig.js')
-const Users = require('../users/users-model');
+const server = require('../api/server.js')
 
 describe('the auth-router', () => {
     
     describe('POST /register',() => {
-        
-        afterEach(async () => {
-            //clean up
-            await db('users').truncate();
+
+        it('responds with json', () => {
+            request(server)
+                .post('/api/auth/register')
+                .send({ username: 'Ashley', password: '123' })
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/ )
+                .expect(200)
+                .end((err, res) => {
+                    if(err) return document(err);
+                    else(done());
+                })
         })
+     
+    })
 
-        it('should instert a user into the db', async () => {
-            //using our model method
-            await Users.add({ username: 'Ashley', password: 'abc123'})
-            await Users.add({ username: 'Mandy', password: 'abc123'})
-
-            //confirm with knex
-            const users = await db('users');
-
-            expect(users).toHaveLength(2);
-            expect(users[0].username).toBe('Ashley')
+    describe('/login', () => {
+       
+        it('responds with json', () => {
+            request(server)
+                .post('/api/auth/register')
+                .send({ username: 'Ashley', password: '123' })
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/ )
+                .expect(200)
+                .end((err, res) => {
+                    if(err) return document(err);
+                    else(done());
+                })
         })
     })
 })
